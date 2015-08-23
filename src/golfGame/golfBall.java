@@ -11,10 +11,16 @@ public class golfBall {
 		incID();
 	}
 	
+	/*
+	 * Return ball's ID
+	 */
 	public int getID() {
 		return myID;		
 	}
 	
+	/*
+	 * Increment ball's number
+	 */
 	private static void  incID() {
 		noBalls++;
 	}

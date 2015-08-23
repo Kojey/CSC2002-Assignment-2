@@ -29,15 +29,15 @@ public class Bollie extends Thread{
 				sleep(waitTime.nextInt(1000));
 				System.out.println("*********** Bollie collecting balls   ************");	
 				// sharedField.collectAllBallsFromField(ballsCollected);
+				sharedField.collectAllBallsFromField(ballsCollected);
 				// collect balls, no golfers allowed to swing while this is happening
 				sleep(1000);
 				System.out.println("*********** Bollie adding balls to stash ************");	
 				//sharedStash.addBallsToStash(ballsCollected,noCollected);
+				sharedStash.addBallsToStash(ballsCollected,ballsCollected.length);
 				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-		    		}
-		}	
+				} catch (InterruptedException e) {e.printStackTrace();} 
+		}
+	}	
+	
 }
