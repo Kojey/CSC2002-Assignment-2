@@ -1,3 +1,9 @@
+/**
+ * Simulation of the range
+ * The place where the golfer swing the balls to
+ * @author Michelle
+ * @version 1 by Othniel
+ */
 package golfGame;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -8,16 +14,22 @@ public class Range {
 	private static int sizeStash=20;
 	private AtomicBoolean cartOnField;
 
-	//ADD variable: ballsOnField collection;
 	static ArrayBlockingQueue<golfBall> ballsOnField = new ArrayBlockingQueue<golfBall>(sizeStash);
 	
-	//Add constructors
+	/**
+	 * @param stash the number of element in the stash
+	 * @param cart a boolean indicating the presence of bollie on the field
+	 */
 	Range(int stash, AtomicBoolean cart){
 		sizeStash = stash;
 		cartOnField = cart;
 	}
 	
-	//ADD method: collectAllBallsFromField(golfBall [] ballsCollected) 
+	/**
+	 * Collect all balls on the field and put it in Bollie's bucket 
+	 * @param ballsCollected Bollie's bucket for balls' collection
+	 * @return the number of balls collected
+	 */
 	public static int collectAllBallsFromField(golfBall [] ballsCollected){
 		int k = 0;
 		for(int i=0; i<ballsCollected.length; i++) 
@@ -31,7 +43,10 @@ public class Range {
 		return k;
 	}
 	
-	//ADD method: hitBallOntoField(golfBall ball) 
+	/**
+	 * Simulate the throwing of a ball on the range
+	 * @param ball the ball to be swung
+	 */
 	public static void hitBallOntoField(golfBall ball) {
 		try {ballsOnField.put(ball);} 
 		catch (InterruptedException e) {e.printStackTrace();}

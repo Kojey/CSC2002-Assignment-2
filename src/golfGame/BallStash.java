@@ -1,3 +1,8 @@
+/**
+ * BallStash represents the balls in the stash 
+ * @author Michelle
+ * @version 1 by Othniel
+ */
 package golfGame;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -7,16 +12,16 @@ public class BallStash {
 	private static int sizeStash=15;
 	private static int sizeBucket=2;
 	
-	 //ADD variables: a collection of golf balls, called stash
 	static ArrayBlockingQueue<golfBall> stash;
 	
 	BallStash(int size){
 		stash =  new ArrayBlockingQueue<golfBall>(size); 
 	}
-	//ADD methods:
-	//getBucketBalls
-	/*
-	 * Given a bucket size, it returns a bucket filled of golf balls
+	
+	/**
+	 * Take balls from the stash
+	 * @param size the number of ball to take from stash
+	 * @return a bucket containing the balls taken from stash
 	 */
 	synchronized public static golfBall[] getBucketBalls(int size){
 		golfBall[] bucket = new golfBall[size];
@@ -26,16 +31,18 @@ public class BallStash {
 		}
 		return bucket;
 	}
-	// addBallsToStash
-	/*
-	 * Add a ball to the stash
+	/**
+	 * Add a ball to stash
+	 * @param b the ball to be added to stash
 	 */
 	public void addBallsToStash(golfBall b){
 			try{stash.put(b);} 
 			catch (InterruptedException e) {e.printStackTrace();}
 	}
-	/*
-	 * Add a ball to the stash
+	/**
+	 * Add a bucket of ball to stash
+	 * @param b a bucket of ball
+	 * @param size the number of ball in the bucket
 	 */
 	public static void addBallsToStash(golfBall [] b, int size){
 		for(int i=0; i<size; i++)
@@ -44,24 +51,39 @@ public class BallStash {
 				catch(InterruptedException e){e.printStackTrace();}
 			}
 	}
-	// getBallsInStash - return number of balls in the stash
-	/*
-	 * return number of balls in the stash
+	/**
+	 * Get the number of ball in the stash
+	 * @return the number of balls in the stash
 	 */
 	synchronized public static int getBallsInStash(){
 		return stash.size();
 	}
 	
-	//getters and setters for static variables - you need to edit these
+	/**
+	 * Set the size of the bucket
+	 * @param noBalls the size of the bucket
+	 */
 	public static  void setSizeBucket (int noBalls) {
 		sizeBucket=noBalls;
 	}
+	/**
+	 * Set the size of the bucket
+	 * @return the size of the bucket
+	 */
 	public static int getSizeBucket () {
 		return sizeBucket;
 	}
+	/**
+	 * Set the size of the stash
+	 * @param noBalls the size of stash
+	 */
 	public static void setSizeStash (int noBalls) {
 		sizeStash=noBalls;
 	}
+	/**
+	 * Get the size of the stash
+	 * @return the size of the stash
+	 */
 	public static int getSizeStash () {
 		return sizeStash;
 	}
