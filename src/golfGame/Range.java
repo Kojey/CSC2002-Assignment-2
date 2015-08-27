@@ -18,13 +18,22 @@ public class Range {
 	}
 	
 	//ADD method: collectAllBallsFromField(golfBall [] ballsCollected) 
-	public static void collectAllBallsFromField(golfBall [] ballsCollected){
+	public static int collectAllBallsFromField(golfBall [] ballsCollected){
+		int k = 0;
 		for(int i=0; i<ballsCollected.length; i++) 
-			ballsCollected[i]=ballsOnField.poll(); // Move balls from field to stash
+			{
+				if(!ballsOnField.isEmpty()){
+					try {ballsCollected[i]=ballsOnField.take();} 
+					catch (InterruptedException e) {e.printStackTrace();} // Move balls from field to stash
+					k++;
+				}
+			}
+		return k;
 	}
 	
 	//ADD method: hitBallOntoField(golfBall ball) 
 	public static void hitBallOntoField(golfBall ball) {
-		ballsOnField.add(ball);
+		try {ballsOnField.put(ball);} 
+		catch (InterruptedException e) {e.printStackTrace();}
 	}
 }

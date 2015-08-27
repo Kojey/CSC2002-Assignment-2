@@ -20,24 +20,30 @@ public class Bollie extends Thread{
 	}
 	
 	
-	public void run() {
+	public synchronized void run() {
 		
 		//while True
 		golfBall [] ballsCollected = new golfBall[sharedStash.getSizeStash()];
-		while (done.get()!=true) {
+		 do{
 			try {
 				sleep(waitTime.nextInt(1000));
 				System.out.println("*********** Bollie collecting balls   ************");	
-				// sharedField.collectAllBallsFromField(ballsCollected);
-				sharedField.collectAllBallsFromField(ballsCollected);
+				// sharedField.collectAllBallsFromField(ballsCollected);	
 				// collect balls, no golfers allowed to swing while this is happening
+				Golfer.setCart(new AtomicBoolean(true));
+				int k = sharedField.collectAllBallsFromField(ballsCollected);
+				System.out.println("*********** Bollie collected "+k+" balls from range ************");
 				sleep(1000);
-				System.out.println("*********** Bollie adding balls to stash ************");	
+				Golfer.setCart(new AtomicBoolean(false));
+				//this.notifyAll();
+				System.out.println("*********** Bollie adding "+k+" balls to stash ************");	
 				//sharedStash.addBallsToStash(ballsCollected,noCollected);
-				sharedStash.addBallsToStash(ballsCollected,ballsCollected.length);
-				
+				Golfer.setStash(new AtomicBoolean(true));
+				sharedStash.addBallsToStash(ballsCollected,k);
+				Golfer.setStash(new AtomicBoolean(false));
 				} catch (InterruptedException e) {e.printStackTrace();} 
-		}
+		}while (done.get()!=true);
+		
 	}	
 	
 }
